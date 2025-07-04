@@ -1,9 +1,11 @@
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import toast from "react-hot-toast";
 
 const Cart = () => {
+  const location = useLocation();
   const {
     products,
     currency,
@@ -22,13 +24,24 @@ const Cart = () => {
   const [addresses, setAddresses] = useState([]);
   const [showAddress, setShowAddress] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const [guestAddress, setGuestAddress] = useState(null);
+
+  useEffect(() => {
+    const storedGuestAddress = JSON.parse(localStorage.getItem('guestAddress'));
+    if (!user && storedGuestAddress) {
+      setGuestAddress(storedGuestAddress);
+      setSelectedAddress(storedGuestAddress); // Set guest address as selected
+    }
+  }, [user]);
 
   const getCart = () => {
     let tempArray = [];
     for (const key in cartItems) {
       const product = products.find((item) => item._id === key);
-      product.quantity = cartItems[key];
-      tempArray.push(product);
+      if (product) {
+        product.quantity = cartItems[key];
+        tempArray.push(product);
+      }
     }
     setCartArray(tempArray);
   };
@@ -53,83 +66,130 @@ const Cart = () => {
     try {
       if (!selectedAddress) {
         return toast.error("Please select a delivery address to proceed with your order!", {
-                  style: {
-                    border: '1px solid #FF5A5F',
-                    padding: '12px',
-                    color: '#D8000C',
-                    backgroundColor: '#FFF3F3',
-                  },
-                
-                });
-
+          style: {
+            border: '1px solid #FF5A5F',
+            padding: '12px',
+            color: '#D8000C',
+            backgroundColor: '#FFF3F3',
+          },
+        });
       }
 
       const orderItems = cartArray.map((item) => ({
         product: item._id,
         quantity: item.quantity,
       }));
+// guest user 
+     if (!user) {
+  const orderPayload = {
+    items: orderItems,
+    address: guestAddress,
+  };
 
-      // Razorpay Payment Only
+  const { data } = await axios.post("/api/order/guest/razorpay", orderPayload);
+
+  if (data.success) {
+    const orderId = data.orderId;
+
+    const options = {
+      key: data.key,
+      amount: data.order.amount,
+      currency: data.order.currency,
+      name: "The Luxelife",
+      description: "Guest Order Payment",
+      order_id: data.order.id,
+      handler: async function (response) {
+        const verifyRes = await axios.post("/api/order/guest/razorpay/verify", {
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_signature: response.razorpay_signature,
+          orderId,
+        });
+
+        if (verifyRes.data.success) {
+          toast.success("Payment successful!");
+          localStorage.removeItem("guestAddress");
+          setCartItems({});
+          navigate("/payment-success");
+        } else {
+          toast.error("Payment verification failed.");
+        }
+      },
+      prefill: {
+        name: guestAddress.firstName + " " + guestAddress.lastName,
+        email: guestAddress.email,
+        contact: guestAddress.phone,
+      },
+      theme: { color: "#3f1f0a" },
+    };
+
+    const razor = new window.Razorpay(options);
+    razor.open();
+  } else {
+    toast.error(data.message);
+  }
+
+  return;
+}
+
+
+      // Razorpay Payment for Logged-in User
       const { data } = await axios.post("/api/order/razorpay", {
         userId: user._id,
         items: orderItems,
         address: selectedAddress._id,
       });
 
-              if (data.success) {
-          const orderId = data.orderId; // ✅ FIXED: Capture it from backend response
+      if (data.success) {
+        const orderId = data.orderId;
 
-          const options = {
-            key: data.key,
-            amount: data.order.amount,
-            currency: data.order.currency,
-            name: "The Luxelife",
-            description: "Order Payment",
-            order_id: data.order.id,
-            handler: async function (response) {
-              console.log("Handler triggered", response);
+        const options = {
+          key: data.key,
+          amount: data.order.amount,
+          currency: data.order.currency,
+          name: "The Luxelife",
+          description: "Order Payment",
+          order_id: data.order.id,
+          handler: async function (response) {
+            const verifyRes = await axios.post("/api/order/razorpay/verify", {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              userId: user._id,
+              orderId,
+            });
 
-              const verifyRes = await axios.post("/api/order/razorpay/verify", {
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-                userId: user._id,
-                orderId, // ✅ Now this works
+            if (verifyRes.data.success) {
+              toast.success('Payment successful!', {
+                style: {
+                  backgroundColor: '#3f1f0a',
+                  color: 'white',
+                },
+                iconTheme: {
+                  primary: '#3f1f0a',
+                  secondary: '#FFFAEE',
+                },
               });
+              setCartItems({});
+              navigate("/payment-success");
+            } else {
+              toast.error("Something went wrong in payment verification.");
+            }
+          },
+          prefill: {
+            name: user.name,
+            email: user.email,
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
 
-              console.log("Verify response", verifyRes.data);
-
-              if (verifyRes.data.success) {
-                 toast.success('Payment successful!', {
-                  style: {
-                    backgroundColor: '#3f1f0a',
-                    color: 'white',
-                  },
-                  iconTheme: {
-                    primary: '#3f1f0a',
-                    secondary: '#FFFAEE',
-                  },
-              });
-                setCartItems({});
-                navigate("/payment-success"); // ✅ Redirects now
-              } else {
-                toast.error("Something went wrong in payment verification.");
-              }
-            },
-            prefill: {
-              name: user.name,
-              email: user.email,
-            },
-            theme: {
-              color: "#3399cc",
-            },
-          };
-
-          const razor = new window.Razorpay(options);
-          razor.open();
-        } else {
-          toast.error(data.message);
-        }
+        const razor = new window.Razorpay(options);
+        razor.open();
+      } else {
+        toast.error(data.message);
+      }
 
     } catch (error) {
       console.log(error);
@@ -137,23 +197,22 @@ const Cart = () => {
     }
   };
 
-  useEffect(() => {
-    if (products.length > 0 && cartItems) {
-      getCart();
-    }
-  }, [products, cartItems]);
+      useEffect(() => {
+        if (products.length > 0 && cartItems) {
+          getCart();
+        }
+      }, [products, cartItems]);
 
-  useEffect(() => {
-    if (user) {
-      getUserAddress();
-    }
-  }, [user]);
-
+      useEffect(() => {
+        if (user) {
+          getUserAddress();
+        }
+      }, [location, user]);
   return products.length > 0 && cartItems ? (
     <div className="mx-auto max-w-7xl">
       <div className="px-6 md:px-16 py-15">
         <div className="flex flex-col md:flex-row mt-16">
-          {/* Left Section */}
+            {/* Left Section */}
           <div className="flex-1 max-w-4xl">
             <h1 className="text-3xl font-medium mb-6">
               Shopping Cart{" "}
@@ -275,8 +334,8 @@ const Cart = () => {
                   Change
                 </button>
                 {showAddress && (
-                  <div className="absolute top-12 py-1 bg-white border border-gray-300 text-sm w-full">
-                    {addresses.map((address, index) => (
+                  <div className="absolute top-12 py-1 bg-white border border-gray-300 text-sm w-full z-10">
+                    {user && addresses.map((address, index) => (
                       <p
                         key={index}
                         onClick={() => {
@@ -285,28 +344,12 @@ const Cart = () => {
                         }}
                         className="text-gray-500 p-2 hover:bg-gray-100"
                       >
-                        {address.street}, {address.city}, {address.state},{" "}
-                        {address.country}
+                        {address.street}, {address.city}, {address.state}, {address.country}
                       </p>
                     ))}
                     <p
-                      onClick={() => {
-                        if (!user) {
-                          toast.error("Please login to continue", {
-                          style: {
-                            backgroundColor: '#3f1f0a',
-                            color: 'white',
-                          },
-                          iconTheme: {
-                            primary: '#3f1f0a',
-                            secondary: '#FFFAEE',
-                          },
-                      })
-                        } else {
-                          navigate("/add-address");
-                        }
-                      }}
-                      className="text-[#3f1f0a] text-center cursor-pointer p-2 hover:bg-[#3f1f0a]/10"
+                      onClick={() => navigate("/add-address")}
+                      className="cursor-pointer text-[#3f1f0a] text-center p-2 hover:bg-[#3f1f0a]/10"
                     >
                       Add address
                     </p>
@@ -320,26 +363,22 @@ const Cart = () => {
             <div className="text-gray-500 mt-4 space-y-2">
               <p className="flex justify-between">
                 <span>Price</span>
-                <span>
-                  {currency}
-                  {getCartAmount()}
-                </span>
+                <span>{currency}{getCartAmount()}</span>
               </p>
               <p className="flex justify-between">
                 <span>Shipping Fee</span>
                 <span className="text-[#3f1f0a]">Free</span>
               </p>
-             
               <p className="flex justify-between text-lg font-medium mt-3">
                 <span>Total Amount:</span>
-                <span>
-                  {currency}
-                  {getCartAmount() }
-                </span>
+                <span>{currency}{getCartAmount()}</span>
               </p>
             </div>
 
-            <button onClick={placeOrder} className="w-full py-3 mt-6 cursor-pointer bg-[#3f1f0a] text-white font-medium hover:bg-[#3f1f0a]-dull transition">
+            <button
+              onClick={placeOrder}
+              className="w-full py-3 mt-6 cursor-pointer bg-[#3f1f0a] text-white font-medium hover:bg-[#3f1f0a]-dull transition"
+            >
               Proceed to Checkout
             </button>
           </div>

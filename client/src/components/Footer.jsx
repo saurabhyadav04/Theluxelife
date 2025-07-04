@@ -9,9 +9,10 @@ function Footer() {
       {/* About Us */}
       <div>
         <h3 className="font-semibold text-[20px] mb-2"style={{ fontFamily: "'Lato', sans-serif" }} >About Us</h3>
-        <p className="text-[15px] leading-relaxed"style={{ fontFamily: "'Lato', sans-serif" }}>
-          <span className="font-semibold" >THE LUXELIFE</span> | We are a brand that celebrates people and moments through thoughtful gifts that have a unique story to tell. Shop curated personal or corporate gifts to your friends & family for your special occasion through one of the best gifting sites in India. Also build customized corporate or personal gift for your special event through our custom design service.
-        </p>
+        <p className="text-[15px] leading-relaxed" style={{ fontFamily: "'Lato', sans-serif" }}>
+  <span className="font-semibold tracking-wide text-black-600">THE LUXELIFE™</span> | We are a brand that celebrates people and moments through thoughtful gifts that have a unique story to tell. Shop curated personal or corporate gifts to your friends & family for your special occasion through one of the best gifting sites in India. Also build customized corporate or personal gift for your special event through our custom design service.
+</p>
+
         <div className="flex gap-4 mt-4">
           <a href="#"><FaFacebookF /></a>
           <a href="#"><FaInstagram /></a>

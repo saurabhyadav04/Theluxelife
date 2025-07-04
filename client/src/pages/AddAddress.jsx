@@ -44,28 +44,34 @@ const AddAddress = () => {
 
 
 
-    const onSubmitHandler = async (e)=>{
-        e.preventDefault();
-        try {
-            const {data} = await axios.post('/api/address/add', {address});
+    const onSubmitHandler = async (e) => {
+    e.preventDefault();
 
-            if (data.success){
-                toast.success(data.message)
-                navigate('/cart')
-            }else{
-                toast.error(data.message)
-            }
-        } catch (error) {
-            toast.error(error.message)
-        }
+    if (!user) {
+        // 👤 Guest User: store address in localStorage or context
+        localStorage.setItem('guestAddress', JSON.stringify(address));
+        toast.success("Guest address saved.");
+        navigate('/cart'); // or wherever the guest should go next
+        return;
     }
 
-    useEffect(()=>{
-        if(!user){
-            navigate('/cart')
-        }
-    },[])
+    // 🔐 Logged-in User: save to backend
+    try {
+        const { data } = await axios.post('/api/address/add', { address });
 
+        if (data.success) {
+            toast.success(data.message);
+            navigate('/cart');
+        } else {
+            toast.error(data.message);
+        }
+    } catch (error) {
+        toast.error(error.response?.data?.message || error.message);
+    }
+};
+
+
+  
   return (
      <div class="mx-auto max-w-7xl">
     <div className='px-6 md:px-16 lg:px-24 xl:px-32 py-15'>

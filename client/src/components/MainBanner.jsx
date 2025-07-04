@@ -14,13 +14,13 @@ function LuxeLife({ mainImage }) {
       style={{ backgroundImage: `url(${mainImage})` }}
     >
       <div className="w-full h-full bg-white/10 ">
-        <div className="max-w-[1000px] md:ml-[35px] px-4 sm:px-15 py-8 sm:py-25">
-          <h1 className="hidden sm:block font-[400] text-[40px] sm:text-[70px] my-6 sm:my-10 tracking-wide text-center sm:text-left">
+        <div className="max-w-[1000px] md:ml-[35px] px-4 sm:px-15 py-20 sm:py-25">
+          <h1 className=" font-[400] text-[30px] sm:text-[65px] my-6 sm:my-10 tracking-wide text-left" style={{fontFamily:'"Playfair Display", serif'}}>
             THE LUXELIFE
           </h1>
 
           {/* Horizontal layout with wrapping */}
-          <div className="flex flex-row flex-wrap gap-6 sm:gap-16 justify-center sm:justify-start py-20 sm:py-0">
+          <div className="flex flex-row flex-wrap gap-6 sm:gap-16 justify-start sm:justify-start">
             {[
               {
                 label: <div className="leading-tight">WEDDING <br /> FAVOURS</div>,
@@ -28,7 +28,7 @@ function LuxeLife({ mainImage }) {
                   <img
                     src={wedding}
                     alt="WEDDING"
-                    className="w-[50px] h-auto"
+                    className="w-[25px] sm:w-[50px] h-auto"
                   />
                 ),
                 path: '/',
@@ -44,7 +44,7 @@ function LuxeLife({ mainImage }) {
                   <img
                     src={corporate}
                     alt="CORPORATE GIFTING"
-                    className="w-[50px] h-auto"
+                    className="w-[25px] sm:w-[50px] h-auto"
                   />
                 ),
                 path: '/corporate-gifting',
@@ -60,7 +60,7 @@ function LuxeLife({ mainImage }) {
                   <img
                     src={special}
                     alt="Special Occasion"
-                    className="w-[50px] h-auto"
+                    className="w-[25px] sm:w-[50px] h-auto"
                   />
                 ),
                 path: '/special-occasion',
@@ -77,12 +77,12 @@ function LuxeLife({ mainImage }) {
                     onClick={item.onClick}
                     className={`${
                       isActive ? 'border-[3px]' : 'border-2'
-                    } border-[#3f1f0a] rounded-full w-[90px] h-[90px] mx-auto mb-2 flex items-center justify-center focus:outline-none cursor-pointer transform transition-transform duration-200 hover:scale-110`}
+                    } border-[#3f1f0a] rounded-full w-[50px] sm:w-[90px] h-[50px] sm:h-[90px] mx-auto mb-2 flex items-center justify-center focus:outline-none cursor-pointer transform transition-transform duration-200 hover:scale-110`}
                     aria-label="category-button"
                   >
                     {item.icon}
                   </button>
-                  <div className="text-[16px] sm:text-[20px] font-[400]">
+                  <div className="text-[10px] sm:text-[20px] font-[400]">
                     {item.label}
                   </div>
                 </div>

@@ -4,7 +4,7 @@ import stripe from "stripe"
 import User from "../models/User.js"
 import crypto from "crypto";
 import Razorpay from "razorpay";
-
+import { sendOrderEmail } from "../utils/sendEmail.js";
 
 const razorpayInstance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -42,6 +42,39 @@ export const placeOrderCOD = async (req, res)=>{
     }
 }
 
+// Place Guest Order : /api/order/guest
+export const placeGuestOrder = async (req, res) => {
+  try {
+    const { items, address } = req.body;
+
+    if (!address || items.length === 0) {
+      return res.status(400).json({ success: false, message: "Invalid data" });
+    }
+
+    // Calculate amount
+    let amount = 0;
+    for (const item of items) {
+      const product = await Product.findById(item.product);
+      amount += product.offerPrice * item.quantity;
+    }
+
+    // Add tax (optional)
+    amount += Math.floor(amount * 0.02);
+
+    await Order.create({
+      items,
+      address, // Embedded guest address
+      amount,
+      paymentType: "Online",
+      isGuest: true, // Optional: add this flag if you want to filter later
+    });
+
+    return res.json({ success: true, message: "Guest order placed successfully" });
+  } catch (error) {
+    console.error("Guest Order Error:", error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 
 // Place Order Razorpay : /api/order/razorpay
@@ -130,7 +163,71 @@ export const verifyRazorpayPayment = async (req, res) => {
 };
 
 
+export const placeGuestOrderRazorpay = async (req, res) => {
+  try {
+    const { items, address } = req.body;
+    if (!address || items.length === 0) {
+      return res.status(400).json({ success: false, message: "Invalid data" });
+    }
 
+    let amount = 0;
+    for (const item of items) {
+      const product = await Product.findById(item.product);
+      amount += product.offerPrice * item.quantity;
+    }
+
+    const order = await Order.create({
+      items,
+      amount,
+      address,
+      paymentType: "Online",
+      isGuest: true,
+    });
+
+    const razorpayOrder = await razorpayInstance.orders.create({
+      amount: amount * 100,
+      currency: "INR",
+      receipt: `guest_receipt_${order._id}`,
+    });
+
+    return res.json({
+      success: true,
+      order: razorpayOrder,
+      key: process.env.RAZORPAY_KEY_ID,
+      orderId: order._id,
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+
+export const verifyGuestRazorpayPayment = async (req, res) => {
+  try {
+    const {
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
+      orderId,
+    } = req.body;
+
+    const sign = `${razorpay_order_id}|${razorpay_payment_id}`;
+    const expectedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_SECRET)
+      .update(sign)
+      .digest("hex");
+
+    if (expectedSignature !== razorpay_signature) {
+      return res.status(400).json({ success: false, message: "Payment verification failed" });
+    }
+
+    await Order.findByIdAndUpdate(orderId, { isPaid: true });
+
+    return res.json({ success: true });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 
 

@@ -20,7 +20,7 @@ const BestSeller = () => {
     </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-[50px] lg:grid-cols-4  w-full place-items-center sm:place-items-start ">
-        {products.filter((product)=> product.inStock).slice(0,5).map((product, index)=>(
+        {products.filter((product)=> product.inStock).slice(0,4).map((product, index)=>(
             <ProductCard key={index} product={product}/>
         ))}
       </div>

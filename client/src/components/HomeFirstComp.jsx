@@ -5,27 +5,55 @@ import three from '../Images/first-03.jpg'
 
 
 function HomeFirstComp() {
-  const slides = [
-    {
-      src: one,
-      alt: "Stacked gift boxes with ribbons on red background",
-      heading1: "A Gift of Love",
-      heading2: "For your happily ever after.",
-    },
-    {
-      src:two,
-      alt: "Placeholder image for slide 2",
-      heading1: "Your Corporate Family Deserves",
-      heading2: "For your happily ever after.",
-    },
-    {
-      src: three,
-      alt: "Placeholder image for slide 3",
-      heading1: "Your hamper, Your choices",
-      heading2: "Make your own hamper now!",
-    },
-   
-  ];
+              const slides = [
+                {
+                  src: one,
+                  alt: "Stacked gift boxes with ribbons on red background",
+                  heading1: (
+                    <strong style={{ fontWeight: 600, fontFamily: "Avenir, sans-serif" }}>
+                      A Gift of Love
+                    </strong>
+                  ),
+                  heading2: (
+                    <span style={{ fontFamily: "Avenir, sans-serif" }}>
+                      For your happily ever after.
+                    </span>
+                  ),
+                },
+                {
+                  src: two,
+                  alt: "Placeholder image for slide 2",
+                  heading1: (
+                    <span style={{ fontFamily: "Avenir, sans-serif" }}>
+                      Your{" "}
+                      <strong style={{ fontWeight: 600, fontFamily: "Avenir, sans-serif" }}>
+                        Corporate Family
+                      </strong>{" "}
+                      Deserves
+                    </span>
+                  ),
+                  heading2: (
+                    <span style={{ fontFamily: "Avenir, sans-serif" }}>
+                      For your happily ever after.
+                    </span>
+                  ),
+                },
+                {
+                  src: three,
+                  alt: "Placeholder image for slide 3",
+                  heading1: (
+                    <span style={{ fontFamily: "Avenir, sans-serif" }}>
+                      Your hamper, Your choices
+                    </span>
+                  ),
+                  heading2: (
+                    <strong style={{ fontWeight: 600, fontFamily: "Avenir, sans-serif" }}>
+                      Make your own hamper now!
+                    </strong>
+                  ),
+                },
+              ];
+
 
   const [current, setCurrent] = useState(0);
   const timeoutRef = useRef(null);

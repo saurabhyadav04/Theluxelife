@@ -5,7 +5,7 @@ import { addProduct, changeStock, productById, productList, deleteProduct, } fro
 
 const productRouter = express.Router();
 
-productRouter.post('/add', upload.array(["images"]), authSeller, addProduct);
+productRouter.post('/add', upload.fields([{ name: 'images', maxCount: 3 },{ name: 'video', maxCount: 1 }]), addProduct );
 productRouter.get('/list', productList)
 productRouter.get('/id', productById)
 productRouter.post('/stock', authSeller, changeStock)

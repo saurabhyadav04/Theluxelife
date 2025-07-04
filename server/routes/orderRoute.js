@@ -8,7 +8,10 @@ import {
   placeOrderCOD,
   placeOrderStripe,
   placeOrderRazorpay,
-  verifyRazorpayPayment
+  verifyRazorpayPayment,
+  placeGuestOrder,
+  placeGuestOrderRazorpay,
+  verifyGuestRazorpayPayment,
 } from '../controllers/orderController.js';
 
 const orderRouter = express.Router();
@@ -19,5 +22,7 @@ orderRouter.post('/razorpay', authUser, placeOrderRazorpay);
 orderRouter.post('/razorpay/verify', authUser, verifyRazorpayPayment);
 orderRouter.get('/user', authUser, getUserOrders);
 orderRouter.get('/seller', authSeller, getAllOrders);
-
+orderRouter.post('/guest', placeGuestOrder); 
+orderRouter.post("/guest/razorpay", placeGuestOrderRazorpay);
+orderRouter.post("/guest/razorpay/verify", verifyGuestRazorpayPayment);
 export default orderRouter;

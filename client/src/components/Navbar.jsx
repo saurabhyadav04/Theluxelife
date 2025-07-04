@@ -9,6 +9,20 @@ import headerImage02 from '../Images/header-image1.jpg'
 const Navbar = ({ hasBannerBackground }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+// Close user dropdown on outside click
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (!event.target.closest('.relative')) {
+      setShowUserDropdown(false);
+    }
+  };
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+}, []);
+
   const dropdownRef = useRef(null);
 
   const {
@@ -263,27 +277,52 @@ useEffect(() => {
           <NavLink to="/contact" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
             CONTACT US
           </NavLink>
+          
             <div className='block sm:hidden'>
               {user ? (
-              <div className="relative group cursor-pointer">
-                <img src={assets.profile_icon} className="w-10" alt="profile" />
-                <ul className="hidden group-hover:block absolute top-10 right-0 bg-[#edd9c1] text-[#3f1f0a] shadow py-2.5 w-30 rounded-md text-[17px] z-40">
-                  <li onClick={() => navigate('my-orders')} className="p-1.5 pl-3 hover:scale-110 cursor-pointer">My Orders</li>
-                  <li onClick={logout} className="p-1.5 pl-3 hover:scale-110 cursor-pointer">Logout</li>
-                </ul>
-              </div>
-            ) : (
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setShowUserLogin(true);
-                }}
-                className={`cursor-pointer px-6 py-2 ${hasBannerBackground ? 'bg-[#3f1f0a] text-white' : 'bg-[#3f1f0a] text-white hover:scale-110'} rounded-full text-sm transition duration-200`}
-              >
-                Login
-              </button>
-            )}
+                <div className="relative cursor-pointer">
+                  <img
+                    src={assets.profile_icon}
+                    className="w-10"
+                    alt="profile"
+                    onClick={() => setShowUserDropdown(!showUserDropdown)}
+                  />
+                  {showUserDropdown && (
+                    <ul className="absolute top-10 left-0 w-30 bg-[#edd9c1] text-[#3f1f0a] shadow py-2.5 px-0 text-[17px] z-40 rounded-none">
+                      <li
+                        onClick={() => {
+                          setShowUserDropdown(false);
+                          navigate('my-orders');
+                        }}
+                        className="p-1.5 pl-3 hover:scale-110 cursor-pointer"
+                      >
+                        My Orders
+                      </li>
+                      <li
+                        onClick={() => {
+                          setShowUserDropdown(false);
+                          logout();
+                        }}
+                        className="p-1.5 pl-3 hover:scale-110 cursor-pointer"
+                      >
+                        Logout
+                      </li>
+                    </ul>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setShowUserLogin(true);
+                  }}
+                  className={`cursor-pointer px-6 py-2 ${hasBannerBackground ? 'bg-[#3f1f0a] text-white' : 'bg-[#3f1f0a] text-white hover:scale-110'} rounded-full text-sm transition duration-200`}
+                >
+                  Login
+                </button>
+              )}
             </div>
+
         </nav>
 
         {/* Desktop Cart and Login */}

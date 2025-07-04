@@ -5,6 +5,7 @@ import HomeFirstComp from '../components/HomeFirstComp'
 import HomesSecondComp from '../components/HomesSecondComp'
 import HomeThirdComp from '../components/HomeThirdComp'
 import mainImage from '../Images/mainbanner-image.png';
+// import mainImage from '../Images/new main banner.jpg';
 
 const Home = () => {
   return (
