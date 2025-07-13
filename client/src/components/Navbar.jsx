@@ -239,15 +239,15 @@ useEffect(() => {
                 <div>
                   <h4 className="font-[500] mb-2 text-[16px]">BY PRICE</h4>
                   <ul className="space-y-1">
-                    <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/price/0-3000"  onClick={() => {
+                    <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/under-4000"  onClick={() => {
                             setIsProductDropdownOpen(false);
                             setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
                           }}>INR 0 - 4000</NavLink></li>
-                                            <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/price/3000-6000"  onClick={() => {
+                                            <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/4000-7000"  onClick={() => {
                             setIsProductDropdownOpen(false);
                             setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
                           }}>INR 4000 - 7000</NavLink></li>
-                                            <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/price/6000-above"  onClick={() => {
+                                            <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/above-7000"  onClick={() => {
                             setIsProductDropdownOpen(false);
                             setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
                           }}>INR 7000 & above</NavLink></li>  
@@ -265,10 +265,10 @@ useEffect(() => {
             </div>
           </div>
 
-          <NavLink to="/corporate-gifting" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
+          <NavLink to="/products/corporate" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
            CORPORATE
           </NavLink>
-          <NavLink to="/special-occasion" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
+          <NavLink to="/products/festive" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
           SPECIAL
           </NavLink>
           <NavLink to="/about-us" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>

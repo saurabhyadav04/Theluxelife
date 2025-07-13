@@ -28,7 +28,7 @@ import Special from './pages/Special';
 import Faqs from './pages/Faqs';
 import ShippingPolicy from './pages/ShippingPolicy';
 import PaymentSuccess from './pages/PaymentSuccess';
-
+import PriceFilteredPage from './pages/PriceFilteredPage';
 const App = () => {
   const location = useLocation();
   const isSellerPath = location.pathname.includes("seller");
@@ -66,6 +66,17 @@ const App = () => {
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/return-refund' element={<ReturnsandRefund />} />
           <Route path='/shipping-policy' element={<ShippingPolicy />} />
+
+            <Route path="/products/under-4000" element={
+              <PriceFilteredPage minPrice={0} maxPrice={4000} title="Products Under ₹4000" />
+            } />
+            <Route path="/products/4000-7000" element={
+              <PriceFilteredPage minPrice={4000} maxPrice={7000} title="Products ₹4000 - ₹7000" />
+            } />
+            <Route path="/products/above-7000" element={
+              <PriceFilteredPage minPrice={7000} maxPrice={null} title="Products Above ₹7000" />
+            } />
+
           <Route path='/seller' element={isSeller ? <SellerLayout /> : <SellerLogin />}>
             <Route index element={isSeller ? <AddProduct /> : null} />
             <Route path='product-list' element={<ProductList />} />

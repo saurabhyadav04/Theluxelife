@@ -31,8 +31,8 @@ function LuxeLife({ mainImage }) {
                     className="w-[25px] sm:w-[50px] h-auto"
                   />
                 ),
-                path: '/',
-                onClick: () => navigate('/'),
+                path: '/products/wedding',
+                onClick: () => navigate('/products/wedding'),
               },
               {
                 label: (
@@ -47,8 +47,8 @@ function LuxeLife({ mainImage }) {
                     className="w-[25px] sm:w-[50px] h-auto"
                   />
                 ),
-                path: '/corporate-gifting',
-                onClick: () => navigate('/corporate-gifting'),
+                path: '/products/corporate',
+                onClick: () => navigate('/products/corporate'),
               },
               {
                 label: (
@@ -63,8 +63,8 @@ function LuxeLife({ mainImage }) {
                     className="w-[25px] sm:w-[50px] h-auto"
                   />
                 ),
-                path: '/special-occasion',
-                onClick: () => navigate('/special-occasion'),
+                path: '/products/festive',
+                onClick: () => navigate('/products/festive'),
               },
             ].map((item, idx) => {
               const isActive = location.pathname === item.path;
