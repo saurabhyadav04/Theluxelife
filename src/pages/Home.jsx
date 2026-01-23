@@ -11,7 +11,6 @@ import mainImage from '../Images/mainbanner-image.png';
 // import MainBannerlohri from '../components/MainBannerlohri';
 
 // import mainImage from '../Images/new main banner.jpg';
-
 const Home = () => {
   return (
     <>
