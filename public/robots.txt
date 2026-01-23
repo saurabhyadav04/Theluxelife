@@ -1,0 +1,22 @@
+User-agent: *
+# Disallow admin or private areas
+Disallow: /admin/
+Disallow: /login/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /payment/
+
+# Prevent indexing of internal policy or utility pages
+Disallow: /privacy-policy
+Disallow: /terms-conditions
+Disallow: /faqs
+Disallow: /contact
+
+# Allow public sections
+Allow: /
+Allow: /products
+Allow: /products/above-7000
+
+# Sitemap
+Sitemap: https://luxelifegifting.com/sitemap.xml
+```
