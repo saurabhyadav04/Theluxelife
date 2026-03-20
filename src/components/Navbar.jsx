@@ -114,7 +114,7 @@ useEffect(() => {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 w-full flex items-center justify-between px-5 py-0 flex-wrap md:flex-nowrap z-50 transition-all duration-300 ${hasBannerBackground ? 'bg-transparent' : 'bg-[#edd9c1]'}`} style={{ position: 'absolute' }}>
+      <header className={`fixed top-0 left-0 w-full flex items-center justify-between px-3 py-0 flex-wrap md:flex-nowrap z-50 transition-all duration-300 ${hasBannerBackground ? 'bg-transparent' : 'bg-[#edd9c1]'}`} style={{ position: 'absolute' }}>
 
         {/* Logo - Mobile */}
         <div className="cursor-pointer md:hidden" onClick={() => navigate('/')}>
@@ -278,7 +278,10 @@ useEffect(() => {
           <NavLink to="/about-us" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
             OUR STORY
           </NavLink>
-          <NavLink to="/contact" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
+          <NavLink to="/blog" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
+            BLOG
+          </NavLink>
+             <NavLink to="/contact" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
             CONTACT US
           </NavLink>
           

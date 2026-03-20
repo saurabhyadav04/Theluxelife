@@ -7,7 +7,7 @@ import HomeFirstComp from '../components/HomeFirstComp'
 import HomesSecondComp from '../components/HomesSecondComp'
 import HomeThirdComp from '../components/HomeThirdComp'
 import mainImage from '../Images/mainbanner-image.png';
-// import mainImage from '../Images/luxelife-banner.png';
+// import mainImage from '../Images/luxelife-banner.png'; 
 // import MainBannerlohri from '../components/MainBannerlohri';
 
 // import mainImage from '../Images/new main banner.jpg';
