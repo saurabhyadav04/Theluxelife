@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { useAppContext } from '../context/AppContext';
 import toast from 'react-hot-toast';
-import Theluxlife from '../Images/Theluxlife-logo.png';
+import Theluxlife from '../Images/Theluxlife-logo2.png';
 import headerImage01 from '../Images/header-image.jpg'
 import headerImage02 from '../Images/header-image1.jpg'
 const Navbar = ({ hasBannerBackground }) => {
@@ -42,11 +42,11 @@ useEffect(() => {
       if (data.success) {
           toast.success(data.message, {
             style: {
-              backgroundColor: '#3f1f0a',
+              backgroundColor: '#ffffff',
               color: 'white',
             },
             iconTheme: {
-              primary: '#3f1f0a',
+              primary: '#ffffff',
               secondary: '#FFFAEE',
             },
         });
@@ -114,7 +114,7 @@ useEffect(() => {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 w-full flex items-center justify-between px-3 py-0 flex-wrap md:flex-nowrap z-50 transition-all duration-300 ${hasBannerBackground ? 'bg-transparent' : 'bg-[#edd9c1]'}`} style={{ position: 'absolute' }}>
+      <header className={`fixed top-0 left-0 w-full flex items-center justify-between px-3 py-0 flex-wrap md:flex-nowrap z-50 pt-3 pb-2 transition-all duration-300 ${hasBannerBackground ? 'bg-transparent' : 'bg-[#0f172a]'}`} style={{ position: 'absolute' }}>
 
         {/* Logo - Mobile */}
         <div className="cursor-pointer md:hidden" onClick={() => navigate('/')}>
@@ -125,12 +125,12 @@ useEffect(() => {
         <div className="flex items-center gap-4 md:hidden">
           <div onClick={() => navigate('/cart')} className="relative cursor-pointer px-3">
             <img src={assets.nav_cart_icon} alt="cart" className="w-6 opacity-80" />
-            <button className="absolute -top-2 -right-3 text-xs text-[#3f1f0a] bg-white w-[18px] h-[18px] rounded-full">
+            <button className="absolute -top-2 -right-3 text-xs text-[#ffffff] bg-white w-[18px] h-[18px] rounded-full">
               {getCartCount()}
             </button>
           </div>
           <button
-            className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} focus:outline-none`}
+            className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} focus:outline-none`}
             onClick={handleMobileMenuToggle}
             aria-label="Toggle menu"
           >
@@ -146,18 +146,19 @@ useEffect(() => {
         </div>
 
         {/* Navigation */}
+        <div className='hidden sm:block' onClick={() => navigate('/')}>
+            <img src={Theluxlife} alt="Luxelife Logo" className="w-[100px] h-auto mx-auto lg:mx-0 " style={{ cursor: 'pointer' }}/>
+          </div>
         <nav
           role="navigation"
           className={`${ mobileMenuOpen ? 'flex' : 'hidden'} md:flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-[30px] w-full md:w-auto text-left md:text-center ${
-            hasBannerBackground ? 'bg-[#edd9c1] md:bg-transparent' : 'bg-[#edd9c1]'
+            hasBannerBackground ? 'bg-[#0f172a] md:bg-transparent' : 'bg-[#0f172a]'
           } px-2 py-2 md:p-0 rounded-md absolute md:static top-full left-0 z-10`}
         >
           {/* Logo Desktop */}
-          <div className='hidden sm:block'>
-            <img src={Theluxlife} alt="Luxelife Logo" className="w-[70px] h-auto mx-auto lg:mx-0" />
-          </div>
+          
 
-          <NavLink to="/" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
+          <NavLink to="/" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
             HOME
           </NavLink>
 
@@ -166,7 +167,7 @@ useEffect(() => {
             <button
               tabIndex="0"
               onClick={handleProductClick}
-              className={`flex items-center gap-1 ${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transition hover:scale-110`}
+              className={`flex items-center gap-1 ${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide transition hover:scale-110`}
               style={{ cursor: 'pointer' }}
             >
               SHOP GIFTS
@@ -176,7 +177,7 @@ useEffect(() => {
             </button>
 
             <div
-              className={`fixed left-0 right-0 mt-2 w-full bg-[#edd9c1] text-[#3f1f0a] shadow-lg transition-opacity z-30 px-4 md:px-20 py-2 sm:py-6 ${
+              className={`fixed left-0 right-0 mt-2 w-full bg-[#0f172a] text-[#ffffff] shadow-lg transition-opacity z-30 px-4 md:px-20 py-2 sm:py-6 ${
                 isProductDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
               }`}
             >
@@ -269,19 +270,19 @@ useEffect(() => {
             </div>
           </div>
 
-          <NavLink to="/products/corporate" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
+          <NavLink to="/products/corporate" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
            CORPORATE
           </NavLink>
-          <NavLink to="/products/special" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
+          <NavLink to="/products/special" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
           SPECIAL
           </NavLink>
-          <NavLink to="/about-us" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
+          <NavLink to="/about-us" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
             OUR STORY
           </NavLink>
-          <NavLink to="/blog" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
+          <NavLink to="/blog" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
             BLOG
           </NavLink>
-             <NavLink to="/contact" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#3f1f0a]'} font-[500] text-[18px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
+             <NavLink to="/contact" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
             CONTACT US
           </NavLink>
           
@@ -295,7 +296,7 @@ useEffect(() => {
                     onClick={() => setShowUserDropdown(!showUserDropdown)}
                   />
                   {showUserDropdown && (
-                    <ul className="absolute top-10 left-0 w-30 bg-[#edd9c1] text-[#3f1f0a] shadow py-2.5 px-0 text-[17px] z-40 rounded-none">
+                    <ul className="absolute top-10 left-0 w-30 bg-[#0f172a] text-[#ffffff] shadow py-2.5 px-0 text-[17px] z-40 rounded-none">
                       <li
                         onClick={() => {
                           setShowUserDropdown(false);
@@ -323,7 +324,7 @@ useEffect(() => {
                     setMobileMenuOpen(false);
                     setShowUserLogin(true);
                   }}
-                  className={`cursor-pointer px-6 py-2 ${hasBannerBackground ? 'bg-[#3f1f0a] text-white' : 'bg-[#3f1f0a] text-white hover:scale-110'} rounded-full text-sm transition duration-200`}
+                  className={`cursor-pointer px-6 py-2 ${hasBannerBackground ? 'bg-[#ffffff] text-[#3f1f0a]' : 'bg-[#ffffff] text-[#3f1f0a] hover:scale-110'} rounded-full text-sm transition duration-200`}
                 >
                   Login
                 </button>
@@ -334,10 +335,10 @@ useEffect(() => {
 
         {/* Desktop Cart and Login */}
         <div className="hidden lg:flex items-center gap-6">
-          <div className={`flex items-center text-sm gap-2 border ${hasBannerBackground ? 'border-[#3f1f0a]' : 'border-[#3f1f0a]'} px-3 rounded-full ml-4`}>
+          <div className={`flex items-center text-sm gap-2 border ${hasBannerBackground ? 'border-[#ffffff]' : 'border-[#ffffff]'} px-3 rounded-full ml-4`}>
             <input
               onChange={(e) => setSearchQuery(e.target.value)}
-              className={`py-1.5 w-full bg-transparent outline-none placeholder-[#3f1f0a] ${hasBannerBackground ? 'text-white' : 'text-[#3f1f0a]'}`}
+              className={`py-1.5 w-full bg-transparent outline-none placeholder-[#ffffff] ${hasBannerBackground ? 'text-[#3f1f0a]' : 'text-[#ffffff]'}`}
               type="text"
               placeholder="Search products"
             />
@@ -354,7 +355,7 @@ useEffect(() => {
           {user ? (
             <div className="relative group cursor-pointer">
               <img src={assets.profile_icon} className="w-10" alt="profile" />
-              <ul className="hidden group-hover:block absolute top-10 right-0 bg-[#edd9c1] text-[#3f1f0a] shadow py-2.5 w-30 rounded-md text-[17px] z-40">
+              <ul className="hidden group-hover:block absolute top-10 right-0 bg-[#0f172a] text-[#ffffff] shadow py-2.5 w-30 rounded-md text-[17px] z-40">
                 <li onClick={() => navigate('my-orders')} className="p-1.5 pl-3 hover:scale-110 cursor-pointer">My Orders</li>
                 <li onClick={logout} className="p-1.5 pl-3 hover:scale-110 cursor-pointer">Logout</li>
               </ul>
@@ -365,7 +366,7 @@ useEffect(() => {
                 setMobileMenuOpen(false);
                 setShowUserLogin(true);
               }}
-              className={`cursor-pointer px-6 py-2 ${hasBannerBackground ? 'bg-[#3f1f0a] text-white' : 'bg-[#3f1f0a] text-white hover:scale-110'} rounded-full text-sm transition duration-200`}
+              className={`cursor-pointer px-6 py-2 ${hasBannerBackground ? 'bg-[#ffffff] text-[#3f1f0a]' : 'bg-[#ffffff] text-[#3f1f0a] hover:scale-110'} rounded-full text-sm transition duration-200`}
             >
               Login
             </button>

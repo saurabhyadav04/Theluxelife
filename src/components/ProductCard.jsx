@@ -3,76 +3,63 @@ import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 
 const ProductCard = ({ product }) => {
-    const { currency, addToCart, removeFromCart, cartItems, navigate } = useAppContext();
+    const { currency, navigate } = useAppContext();
 
-    if (!product) return null;
+    
 
-    // Support multi-category products
-    const productCategory = Array.isArray(product.categories) && product.categories.length > 0
-        ? product.categories[0]  // use first category for URL
-        : product.category;       // fallback for old products
-
-    return (
-        <div
-            onClick={() => {
-                if (!productCategory) return;
-                navigate(`/products/${productCategory.toLowerCase()}/${product._id}`);
-                scrollTo(0, 0);
-            }}
-            className="mt-10 rounded-xl bg-white shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer w-[300px] max-w-100"
+    return product && (
+        <div 
+            onClick={() => { navigate(`/products/${product.category.toLowerCase()}/${product._id}`); window.scrollTo(0, 0); }} 
+            className="group bg-white rounded-lg border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300 cursor-pointer flex flex-col h-full"
         >
-            <div className="flex items-center justify-center rounded-t-xl overflow-hidden h-60">
-                <img
-                    className="transition-transform duration-300 ease-in-out group-hover:scale-105 object-cover w-full"
-                    src={product.image[0]}
-                    alt={product.name}
+            {/* Image Container */}
+            <div className="relative aspect-square overflow-hidden bg-gray-50">
+                {/* Featured Badge */}
+                <div className="absolute top-3 left-3 z-10 flex items-center gap-1 bg-[#C5A373] text-white px-3 py-1 rounded-full text-[10px] font-medium">
+                    <span>✨</span> Featured
+                </div>
+                
+                <img 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                    src={product.image[0]} 
+                    alt={product.name} 
                 />
             </div>
 
-            <div className="p-3 text-gray-700">
-                <p className="text-xs text-gray-400 mb-0.5">{productCategory}</p>
-                <p className="text-[20px] line-clamp-1 text-[#5B3A1A]" style={{ fontWeight: '500' }}>
-                    {product.name}
-                </p>
-
-                <div className="flex items-center gap-0.5 mt-1 mb-2">
-                    {Array(5).fill('').map((_, i) => (
-                        <img
-                            key={i}
-                            className="w-4 h-4"
-                            src={i < 4 ? assets.star_icon : assets.star_dull_icon}
-                            alt="rating star"
-                        />
-                    ))}
-                    <p className="text-xs text-gray-500 ml-1">(4)</p>
+            {/* Product Info */}
+            <div className="p-4 flex flex-col flex-grow">
+                {/* Category Tags */}
+                <div className="flex flex-wrap gap-2 mb-3">
+                    <p className="bg-[#F8F3ED] text-[#5B3A1A] text-[10px] px-2 py-0.5 rounded-md border border-[#E9DCC9]">{product.category}</p>
                 </div>
 
-                <div className="flex items-end justify-between mt-2">
-                    <p className="text-[#073b61] text-base font-semibold">
-                        {currency}{product.offerPrice}
-                        <span className="text-xs text-gray-400 line-through ml-1">
+                {/* Name */}
+                <h3 className="text-[#1A2B48] text-lg font-medium leading-tight mb-1 group-hover:text-[#C5A373] transition-colors">
+                    {product.name}
+                </h3>
+
+                {/* Price */}
+                <div className="flex items-baseline gap-2 mb-2">
+                    <span className="text-[#C5A373] font-bold text-lg">
+                        {currency}{product.offerPrice || product.price}
+                    </span>
+                    {product.offerPrice && (
+                        <span className="text-gray-400 line-through text-xs">
                             {currency}{product.price}
                         </span>
-                    </p>
-
-                    <div onClick={(e) => e.stopPropagation()} className="text-[#3f1f0a]">
-                        {!cartItems[product._id] ? (
-                            <button
-                                className="flex items-center gap-1 px-2 py-1 text-sm bg-[#3f1f0a]/10 border border-[#3f1f0a]/40 rounded-md"
-                                onClick={() => addToCart(product._id)}
-                            >
-                                <img src={assets.nav_cart_icon} alt="cart_icon" className="w-4 h-4" />
-                                Add
-                            </button>
-                        ) : (
-                            <div className="flex items-center justify-between w-20 h-[34px] bg-[#3f1f0a]/25 rounded-md text-sm px-2">
-                                <button onClick={() => removeFromCart(product._id)} className="px-1">-</button>
-                                <span>{cartItems[product._id]}</span>
-                                <button onClick={() => addToCart(product._id)} className="px-1">+</button>
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
+
+                {/* Short Description */}
+                <p className="text-gray-500 text-sm line-clamp-2 mb-4 flex-grow">
+                    {product.description || "Celebrate life's beautiful moments with curated gourmet treats and pampering essentials."}
+                </p>
+
+                {/* Action Button */}
+                <button className="w-full bg-[#1A2B48] text-white py-2.5 rounded-md text-sm font-medium flex items-center justify-center gap-2 hover:bg-[#253d63] transition-colors mt-auto">
+                    View Details
+                    <span className="text-xs">❯</span>
+                </button>
             </div>
         </div>
     );

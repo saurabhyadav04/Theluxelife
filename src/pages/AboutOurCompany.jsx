@@ -1,30 +1,158 @@
-import React from 'react'
+import React from "react";
 
 function AboutOurCompany() {
   return (
-     <div class="mx-auto max-w-7xl py-20 mt-5">
-     <div className="px-5 text-center bg-white text-black">
-      <h2 class="font-heading mb-4 font-bold tracking-tight text-[#5B3A1A]  text-3xl sm:text-4xl"  style={{ fontFamily: "'Playfair Display', serif" }}> Our Story</h2>
-      <p className="text-center text-[18px]  leading-snug font-normal tracking-wide text-[#5B3A1A]  mb-[20px]" style={{ fontFamily: "'Lato', sans-serif" }}>
-        The LuxeLife Gifting is more than just a gifting brand — we're storytellers who celebrate life's special moments through thoughtfully curated and beautifully designed gifts. 
-        Whether it's a personal milestone, a festive celebration, or a professional achievement, we believe that every gift should tell a story and leave a lasting impression.
-      </p>
-      <p className="text-center text-[18px]  leading-snug font-normal tracking-wide text-[#5B3A1A]  mb-[20px]" style={{ fontFamily: "'Lato', sans-serif" }}>
-        Based in India, we specialize in premium personal and corporate gifting, offering a wide selection of curated gift boxes and bespoke options tailored to your needs. 
-        Each LuxeLife gift is handpicked with care, blending aesthetics with meaning, quality with emotion.
-      </p>
-      <p className="text-center text-[18px]  leading-snug font-normal tracking-wide text-[#5B3A1A]  mb-[20px]" style={{ fontFamily: "'Lato', sans-serif" }}>
-        From birthdays and weddings to corporate events and festive hampers, we're here to make every occasion memorable. Our custom design service allows you to co-create personalized 
-        gifts that reflect your brand, your story, or your heartfelt message — turning every box into a conversation.
-      </p>
-      <p className="text-center text-[18px]  leading-snug font-normal tracking-wide text-[#5B3A1A]" style={{ fontFamily: "'Lato', sans-serif" }}>
-        Discover the joy of thoughtful gifting with The LuxeLife — where every gift has a purpose, and every moment matters.
-      </p>
-      <a href="/about-us">
-    </a>
-    </div>
-    </div>
-  )
+    <section className="max-w-7xl mx-auto py-20 px-5 bg-white">
+      {/* Header */}
+      <div className="text-center mb-16">
+       
+
+        <h1
+          className="mt-4 text-4xl md:text-5xl font-bold text-[#5B3A1A]"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          Our Story
+        </h1>
+
+        <div className="w-24 h-[2px] bg-[#c19a6b] mx-auto mt-6"></div>
+
+        <p
+          className="max-w-3xl mx-auto mt-6 text-lg text-[#5B3A1A]"
+          style={{ fontFamily: "'Lato', sans-serif" }}
+        >
+          Creating meaningful gifting experiences that celebrate life’s
+          moments, strengthen relationships, and leave lasting impressions.
+        </p>
+      </div>
+
+      {/* Introduction */}
+      <div className="mb-14">
+        <h2
+          className="text-3xl font-bold mb-5 text-[#5B3A1A]"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          Who We Are
+        </h2>
+
+        <p
+          className="text-[18px] leading-8 text-[#5B3A1A]"
+          style={{ fontFamily: "'Lato', sans-serif" }}
+        >
+          The LuxeLife Gifting is more than just a gifting brand—we are
+          storytellers who believe every gift should carry meaning, emotion, and
+          purpose. We specialize in creating thoughtfully curated gifting
+          experiences that transform ordinary occasions into unforgettable
+          memories. Whether it's a personal celebration, festive occasion, or
+          corporate milestone, our goal is to make every gift feel truly
+          special.
+        </p>
+      </div>
+
+      {/* Mission */}
+      <div className="mb-14">
+        <h2
+          className="text-3xl font-bold mb-5 text-[#5B3A1A]"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          Our Mission
+        </h2>
+
+        <p
+          className="text-[18px] leading-8 text-[#5B3A1A]"
+          style={{ fontFamily: "'Lato', sans-serif" }}
+        >
+          Our mission is to redefine gifting by offering premium, personalized,
+          and thoughtfully designed gift solutions that create meaningful
+          connections. We believe that a well-chosen gift can express gratitude,
+          celebrate achievements, strengthen relationships, and communicate
+          emotions in ways words often cannot.
+        </p>
+      </div>
+
+      {/* What Makes Us Different */}
+      <div className="mb-14">
+        <h2
+          className="text-3xl font-bold mb-5 text-[#5B3A1A]"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          What Makes Us Different
+        </h2>
+
+        <ul
+          className="space-y-4 text-[18px] leading-8 text-[#5B3A1A]"
+          style={{ fontFamily: "'Lato', sans-serif" }}
+        >
+          <li>✓ Premium curated gift boxes and luxury hampers.</li>
+          <li>✓ Personalized gifting tailored to every occasion.</li>
+          <li>✓ Elegant packaging designed to impress.</li>
+          <li>✓ High-quality products sourced with care.</li>
+          <li>✓ Dedicated corporate gifting solutions for businesses.</li>
+          <li>✓ Custom branding, messaging, and packaging options.</li>
+        </ul>
+      </div>
+
+      {/* Corporate Gifting */}
+      <div className="mb-14">
+        <h2
+          className="text-3xl font-bold mb-5 text-[#5B3A1A]"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          Corporate Gifting Excellence
+        </h2>
+
+        <p
+          className="text-[18px] leading-8 text-[#5B3A1A]"
+          style={{ fontFamily: "'Lato', sans-serif" }}
+        >
+          We proudly partner with businesses across India to create memorable
+          gifting experiences for employees, clients, partners, and
+          stakeholders. From festive hampers and onboarding kits to appreciation
+          gifts and event giveaways, our corporate gifting solutions are
+          designed to reflect your brand identity while strengthening valuable
+          relationships.
+        </p>
+      </div>
+
+      {/* Our Promise */}
+      <div className="mb-14">
+        <h2
+          className="text-3xl font-bold mb-5 text-[#5B3A1A]"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          Our Promise
+        </h2>
+
+        <p
+          className="text-[18px] leading-8 text-[#5B3A1A]"
+          style={{ fontFamily: "'Lato', sans-serif" }}
+        >
+          Every gift we create is crafted with attention to detail, exceptional
+          quality, and a commitment to excellence. We strive to deliver not just
+          products, but moments of joy, appreciation, and connection that leave
+          a lasting impact on both the giver and the recipient.
+        </p>
+      </div>
+
+      {/* Closing Section */}
+      <div className="text-center mt-16">
+        <h2
+          className="text-3xl md:text-4xl font-bold mb-6 text-[#5B3A1A]"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          Every Gift Tells a Story
+        </h2>
+
+        <p
+          className="max-w-4xl mx-auto text-[18px] leading-8 text-[#5B3A1A]"
+          style={{ fontFamily: "'Lato', sans-serif" }}
+        >
+          Thank you for being a part of The LuxeLife journey. We invite you to
+          discover the art of thoughtful gifting, where luxury meets meaning and
+          every gift is designed to create unforgettable memories.
+        </p>
+      </div>
+    </section>
+  );
 }
 
-export default AboutOurCompany
+export default AboutOurCompany;

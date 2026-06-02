@@ -6,7 +6,7 @@ function Blog() {
   const navigate = useNavigate();
 
   return (
-    <div className="mx-auto max-w-7xl py-20 px-5">
+    <div className="mx-auto max-w-7xl py-25 px-5">
 
       <div className="text-center mb-16">
         <h1
@@ -36,7 +36,7 @@ function Blog() {
                 className="mb-3 font-bold text-[#5B3A1A] text-xl"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                {blog.title}
+                {blog.title}  
               </h2>
 
               <p

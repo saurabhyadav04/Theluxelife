@@ -6,7 +6,10 @@ import BestSeller from '../components/BestSeller'
 import HomeFirstComp from '../components/HomeFirstComp'
 import HomesSecondComp from '../components/HomesSecondComp'
 import HomeThirdComp from '../components/HomeThirdComp'
-import mainImage from '../Images/mainbanner-image.png';
+import mainImage from '../Images/main-banner2.jpg';
+import CollectionsSection from '../components/CollectionsSection';
+import ProcessSection from '../components/ProcessSection';
+import Testimonial from '../components/Testimonial';
 // import mainImage from '../Images/luxelife-banner.png'; 
 // import MainBannerlohri from '../components/MainBannerlohri';
 
@@ -22,9 +25,12 @@ const Home = () => {
       <MainBanner mainImage={mainImage}/>
       {/* <MainBannerlohri mainImage={mainImage}/> */}
       <HomeFirstComp/>
+      <CollectionsSection/>
       <BestSeller/>
-      <HomesSecondComp/>
-      <HomeThirdComp/>
+      <ProcessSection/>
+      <HomesSecondComp mainImage={mainImage}/>
+      <Testimonial/>
+      {/* <HomeThirdComp/> */}
     </>
   )
 }

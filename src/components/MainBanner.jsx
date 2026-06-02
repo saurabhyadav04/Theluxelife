@@ -1,96 +1,75 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import wedding from '../Images/wedding icon 001.png';
-import corporate from '../Images/corporate icon 001.png';
-import special from '../Images/occasion Icon.png';
+import { useNavigate } from 'react-router-dom';
+import { CheckCircle, Package, Truck, ShieldCheck } from 'lucide-react';
 
 function LuxeLife({ mainImage }) {
   const navigate = useNavigate();
-  const location = useLocation();
 
   return (
-    <div
-      className="bg-cover bg-center bg-no-repeat h-[300px] sm:h-[600px] text-[#3f1f0a] font-['Montserrat']"
-      style={{ backgroundImage: `url(${mainImage})` }}
-    >
-      <div className="w-full h-full bg-white/10 ">
-        <div className="max-w-[1000px] md:ml-[35px] px-4 sm:px-15 py-20 sm:py-25">
-          <h1 className=" font-[400] text-[30px] sm:text-[65px] my-6 sm:my-10 tracking-wide text-left" style={{fontFamily:'"Playfair Display", serif'}}>
-            THE LUXELIFE
-          </h1>
+    <div className="relative min-h-screen flex flex-col font-sans text-white overflow-hidden">
+      
+      {/* Background Layer - Deep Blue/Navy Base */}
+      <div 
+        className="absolute inset-0 z-0 bg-[#0f172a]"
+        style={{
+          // Ye gradient poore page ko ek deep navy aura deta hai
+          background: `radial-gradient(circle at center, #1e293b 0%, #0f172a 100%)`
+        }}
+      />
 
-          {/* Horizontal layout with wrapping */}
-          <div className="flex flex-row flex-wrap gap-6 sm:gap-16 justify-start sm:justify-start">
-            {[
-              {
-                label: <div className="leading-tight">WEDDING <br /> FAVOURS</div>,
-                icon: (
-                  <img
-                    src={wedding}
-                    alt="WEDDING"
-                    className="w-[25px] sm:w-[50px] h-auto"
-                  />
-                ),
-                path: '/products/wedding',
-                onClick: () => navigate('/products/wedding'),
-              },
-              {
-                label: (
-                  <div className="leading-tight text-center">
-                    CORPORATE<br />GIFTING
-                  </div>
-                ),
-                icon: (
-                  <img
-                    src={corporate}
-                    alt="CORPORATE GIFTING"
-                    className="w-[25px] sm:w-[50px] h-auto"
-                  />
-                ),
-                path: '/products/corporate',
-                onClick: () => navigate('/products/corporate'),
-              },
-              {
-                label: (
-                  <div className="leading-tight text-center">
-                    SPECIAL<br />OCCASION
-                  </div>
-                ),
-                icon: (
-                  <img
-                    src={special}
-                    alt="Special Occasion"
-                    className="w-[25px] sm:w-[50px] h-auto"
-                  />
-                ),
-                path: '/products/festive',
-                onClick: () => navigate('/products/festive'),
-              },
-            ].map((item, idx) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <div
-                  key={idx}
-                  className="text-center text-[12px] tracking-wide"
-                >
-                  <button
-                    onClick={item.onClick}
-                    className={`${
-                      isActive ? 'border-[3px]' : 'border-2'
-                    } border-[#3f1f0a] rounded-full w-[50px] sm:w-[90px] h-[50px] sm:h-[90px] mx-auto mb-2 flex items-center justify-center focus:outline-none cursor-pointer transform transition-transform duration-200 hover:scale-110`}
-                    aria-label="category-button"
-                  >
-                    {item.icon}
-                  </button>
-                  <div className="text-[10px] sm:text-[20px] font-[400]">
-                    {item.label}
-                  </div>
-                </div>
-              );
-            })}
+      {/* Hero Image Layer with Blending */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-no-repeat opacity-100 mix-blend-overlay"
+        style={{ 
+          backgroundImage: `url(${mainImage})`,
+        }}
+      />
+
+      {/* Gradient Overlay for Text Readability (Deep Blue Shades) */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0f172a]/80 via-transparent to-[#0f172a]" />
+
+      {/* Main Content Content - Relative to stay above background layers */}
+      <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 text-center">
+        <div className="max-w-4xl animate-fadeIn">
+          {/* Tagline */}
+          <span className="block text-[13px] md:text-[14px] uppercase tracking-[0.5em] mb-6 text-[#c19a6b] font-bold">
+            Curated With Care
+          </span>
+          
+          {/* Main Heading */}
+          <h1 className="text-5xl md:text-[75px] mb-8 leading-[1.05] font-medium tracking-tight" 
+              style={{ fontFamily: "'Playfair Display', serif" }}>
+            The Art of Thoughtful <br className="hidden md:block" /> Gifting
+          </h1>
+          
+          {/* Description */}
+          <p className="text-base md:text-[19px] font-light mb-12 max-w-2xl mx-auto opacity-80 leading-relaxed tracking-wide">
+            Premium curated gift hampers for every occasion — hand-checked, <br className="hidden md:block" /> 
+            beautifully packaged, delivered to your doorstep across India.
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            {/* Primary Gold Button */}
+            <button 
+              onClick={() => navigate('/products')}
+              className="bg-[#c19a6b] hover:bg-[#a6835a] text-white px-12 py-4 rounded-sm transition-all duration-300 flex items-center gap-3 text-[16px] tracking-[0.1em] min-w-[240px] justify-center shadow-lg"
+            >
+              Shop Collection <span className="text-xl">→</span>
+            </button>
+            
+            {/* Secondary Cream Button */}
+            <button 
+              onClick={() => navigate('/products/corporate')}
+              className="bg-[#fdfbf7] hover:bg-white text-[#c19a6b] px-12 py-4 rounded-sm transition-all duration-300 text-[16px] tracking-[0.1em] min-w-[240px] shadow-md"
+            >
+              Corporate Gifting
+            </button>
           </div>
         </div>
       </div>
+
+     
     </div>
   );
 }
