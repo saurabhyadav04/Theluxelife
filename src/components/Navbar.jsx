@@ -270,9 +270,62 @@ useEffect(() => {
             </div>
           </div>
 
-          <NavLink to="/products/corporate" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
-           CORPORATE
-          </NavLink>
+          <div className="relative group">
+  <NavLink
+    to="/products/corporate"
+    onClick={() => setMobileMenuOpen(false)}
+    className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide flex items-center gap-1 transform transition-transform duration-200 hover:scale-110`}
+  >
+    CORPORATE
+    <svg
+      className="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
+  </NavLink>
+
+  <div className="absolute top-full left-0 mt-2 w-80 bg-[#0f172a] text-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+    <NavLink to="/products/corporate/premium-tech-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
+      Premium Tech Gifts
+    </NavLink>
+
+    <NavLink to="/products/corporate/office-desktop-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
+      Office & Desktop Gifts
+    </NavLink>
+
+    <NavLink to="/products/corporate/luxury-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
+      Luxury Gifts
+    </NavLink>
+
+    <NavLink to="/products/corporate/wellness-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
+      Wellness Gifts
+    </NavLink>
+
+    <NavLink to="/products/corporate/personal-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
+      Personal Gifts
+    </NavLink>
+
+    <NavLink to="/products/corporate/employee-onboarding-appreciation-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
+      Employee Onboarding & Appreciation Gifts
+    </NavLink>
+
+    <NavLink to="/products/corporate/divine-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
+      Divine Gifts
+    </NavLink>
+
+    <NavLink to="/products/corporate/home-decor-homeware-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
+      Home Decor & Homeware Gifts
+    </NavLink>
+  </div>
+</div>
           <NavLink to="/products/special" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
           SPECIAL
           </NavLink>

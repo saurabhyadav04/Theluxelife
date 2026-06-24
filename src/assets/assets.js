@@ -124,6 +124,8 @@ export const categories = [
     bgColor: "#F1E3F9",
   },
 
+
+  
   // By Recipient
   {
     section: "BY RECIPIENT",
@@ -174,6 +176,51 @@ export const categories = [
     text: "Baby Announcements",
     path: "baby-announcements",
   },
+
+   {
+    section: "BY CORPORATE",
+    text: "Premium tech gifts",
+    path: "premium-tech-gifts",
+  },
+  {
+    section: "BY CORPORATE",
+    text: "Office desktop gifts",
+    path: "office-desktop-gifts",
+  },
+  {
+    section: "BY CORPORATE",
+    text: "Luxury gifts",
+    path: "luxury-gifts",
+  },
+   {
+    section: "BY CORPORATE",
+    text: "Wellness gifts",
+    path: "wellness-gifts",
+  },
+   {
+    section: "BY CORPORATE",
+    text: "Personal gifts",
+    path: "personal-gifts",
+  },
+   {
+    section: "BY CORPORATE",
+    text: "Employee onboarding appreciation gifts",
+    path: "employee-onboarding-appreciation-gifts",
+  },
+   {
+    section: "BY CORPORATE",
+    text: "Divine gifts",
+    path: "divine-gifts",
+  },
+ {
+    section: "BY CORPORATE",
+    text: "Home decor homeware gifts",
+    path: "home-decor-homeware-gifts",
+  },
+
+
+
+
 
   // // By Price
   // {
