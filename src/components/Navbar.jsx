@@ -6,24 +6,28 @@ import toast from 'react-hot-toast';
 import Theluxlife from '../Images/Theluxlife-logo2.png';
 import headerImage01 from '../Images/header-image.jpg'
 import headerImage02 from '../Images/header-image1.jpg'
+
 const Navbar = ({ hasBannerBackground }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
+  const [isCorporateDropdownOpen, setIsCorporateDropdownOpen] = useState(false); // 👈 New state for corporate dropdown
   const [showUserDropdown, setShowUserDropdown] = useState(false);
-// Close user dropdown on outside click
-useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (!event.target.closest('.relative')) {
-      setShowUserDropdown(false);
-    }
-  };
-  document.addEventListener('mousedown', handleClickOutside);
-  return () => {
-    document.removeEventListener('mousedown', handleClickOutside);
-  };
-}, []);
 
   const dropdownRef = useRef(null);
+  const corporateDropdownRef = useRef(null); // 👈 New ref for corporate dropdown
+
+  // Close user dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.relative')) {
+        setShowUserDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const {
     user,
@@ -68,49 +72,80 @@ useEffect(() => {
 
   const handleProductClick = () => {
     setIsProductDropdownOpen(!isProductDropdownOpen);
+    setIsCorporateDropdownOpen(false); // 👈 Close corporate dropdown if open
+  };
+
+  const handleCorporateClick = (e) => {
+    e.preventDefault(); // 👈 Prevents direct navigation to let dropdown open
+    setIsCorporateDropdownOpen(!isCorporateDropdownOpen);
+    setIsProductDropdownOpen(false); // 👈 Close shop gifts if open
+  };
+
+  const handleCorporateSubLinkClick = () => {
+    setIsCorporateDropdownOpen(false); // 👈 Close dropdown on link click
+    setMobileMenuOpen(false); // 👈 Close mobile menu on link click
   };
 
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen(!mobileMenuOpen);
     setIsProductDropdownOpen(false);
+    setIsCorporateDropdownOpen(false);
   };
 
+  // Auto-close SHOP GIFTS dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setIsProductDropdownOpen(false);
+      }
+    };
 
-
-      // ⬇️ Auto-close SHOP GIFTS dropdown on scroll
-useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target)
-    ) {
-      setIsProductDropdownOpen(false);
-      
+    if (isProductDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
     }
-  };
 
-  if (isProductDropdownOpen) {
-    document.addEventListener('mousedown', handleClickOutside);
-  }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isProductDropdownOpen]);
 
-  return () => {
-    document.removeEventListener('mousedown', handleClickOutside);
-  };
-}, [isProductDropdownOpen]);
+  // ⬇️ Auto-close CORPORATE dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        corporateDropdownRef.current &&
+        !corporateDropdownRef.current.contains(event.target)
+      ) {
+        setIsCorporateDropdownOpen(false);
+      }
+    };
 
-// 👇 Close dropdown and menu on scroll for both desktop and mobile
-useEffect(() => {
-  const handleScroll = () => {
-    setMobileMenuOpen(false);
-    setIsProductDropdownOpen(false);
-  };
+    if (isCorporateDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
 
-  window.addEventListener("scroll", handleScroll);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isCorporateDropdownOpen]);
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, []);
+  // Close dropdown and menu on scroll for both desktop and mobile
+  useEffect(() => {
+    const handleScroll = () => {
+      setMobileMenuOpen(false);
+      setIsProductDropdownOpen(false);
+      setIsCorporateDropdownOpen(false); // 👈 Added here
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -188,23 +223,23 @@ useEffect(() => {
                   <ul className="space-y-1">
                     <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/for-her"  onClick={() => {
                           setIsProductDropdownOpen(false);
-                          setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                          setMobileMenuOpen(false); 
                       }}>For Her</NavLink></li>
                                           <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/for-him"  onClick={() => {
                           setIsProductDropdownOpen(false);
-                          setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                          setMobileMenuOpen(false); 
                       }}>For Him</NavLink></li>
                                           <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/for-couples"  onClick={() => {
                           setIsProductDropdownOpen(false);
-                          setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                          setMobileMenuOpen(false); 
                       }}>For Couples</NavLink></li>
                                           <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/bridesmaid"  onClick={() => {
                           setIsProductDropdownOpen(false);
-                          setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                          setMobileMenuOpen(false); 
                       }}>Bridesmaid</NavLink></li>
                                           <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/stationery-lover"  onClick={() => {
                           setIsProductDropdownOpen(false);
-                          setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                          setMobileMenuOpen(false); 
                       }}>Stationery Lover</NavLink></li>
                   </ul>
                 </div>
@@ -215,27 +250,27 @@ useEffect(() => {
                   <ul className="space-y-1">
                     <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/wedding"  onClick={() => {
                         setIsProductDropdownOpen(false);
-                        setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                        setMobileMenuOpen(false); 
                       }}>Wedding</NavLink></li>
                                         <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/festive"  onClick={() => {
                         setIsProductDropdownOpen(false);
-                        setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                        setMobileMenuOpen(false); 
                       }}>Festive</NavLink></li>
                                         <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/corporate"  onClick={() => {
                         setIsProductDropdownOpen(false);
-                        setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                        setMobileMenuOpen(false); 
                       }}>Corporate</NavLink></li>
                                         <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/housewarming"  onClick={() => {
                         setIsProductDropdownOpen(false);
-                        setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                        setMobileMenuOpen(false); 
                       }}>Housewarming</NavLink></li>
                                         <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/thank-you"  onClick={() => {
                         setIsProductDropdownOpen(false);
-                        setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                        setMobileMenuOpen(false); 
                       }}>Thank You</NavLink></li>
                       <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/baby-announcements"  onClick={() => {
                         setIsProductDropdownOpen(false);
-                        setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                        setMobileMenuOpen(false); 
                       }}>Baby Announcements</NavLink></li>
                   </ul>
                 </div>
@@ -246,15 +281,15 @@ useEffect(() => {
                   <ul className="space-y-1">
                     <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/under-4000"  onClick={() => {
                             setIsProductDropdownOpen(false);
-                            setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                            setMobileMenuOpen(false); 
                           }}>INR 0 - 4000</NavLink></li>
                                             <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/4000-7000"  onClick={() => {
                             setIsProductDropdownOpen(false);
-                            setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                            setMobileMenuOpen(false); 
                           }}>INR 4000 - 7000</NavLink></li>
                                             <li className="text-[16px] hover:scale-110 transition"><NavLink to="/products/above-7000"  onClick={() => {
                             setIsProductDropdownOpen(false);
-                            setMobileMenuOpen(false); // 👈 This line closes the entire menu on small devices
+                            setMobileMenuOpen(false); 
                           }}>INR 7000 & above</NavLink></li>  
                   </ul>
                 </div>
@@ -270,62 +305,63 @@ useEffect(() => {
             </div>
           </div>
 
-          <div className="relative group">
-  <NavLink
-    to="/products/corporate"
-    onClick={() => setMobileMenuOpen(false)}
-    className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide flex items-center gap-1 transform transition-transform duration-200 hover:scale-110`}
-  >
-    CORPORATE
-    <svg
-      className="w-4 h-4"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M19 9l-7 7-7-7"
-      />
-    </svg>
-  </NavLink>
+          {/* Corporate Dropdown (Modified for click behavior) */}
+          <div className="relative" ref={corporateDropdownRef}>
+            <button
+              onClick={handleCorporateClick}
+              className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide flex items-center gap-1 transform transition-transform duration-200 hover:scale-110 focus:outline-none`}
+            >
+              CORPORATE
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
 
-  <div className="absolute top-full left-0 mt-2 w-80 bg-[#0f172a] text-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-    <NavLink to="/products/corporate/premium-tech-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
-      Premium Tech Gifts
-    </NavLink>
+            <div className={`absolute top-full left-0 mt-2 w-80 bg-[#0f172a] text-white shadow-lg rounded-md transition-all duration-300 z-50 ${isCorporateDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+              <NavLink to="/products/premium-tech-gifts" onClick={handleCorporateSubLinkClick} className="block px-4 py-2 hover:bg-white hover:text-black">
+                Premium Tech Gifts
+              </NavLink>
 
-    <NavLink to="/products/corporate/office-desktop-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
-      Office & Desktop Gifts
-    </NavLink>
+              <NavLink to="/products/office-desktop-gifts" onClick={handleCorporateSubLinkClick} className="block px-4 py-2 hover:bg-white hover:text-black">
+                Office & Desktop Gifts
+              </NavLink>
 
-    <NavLink to="/products/corporate/luxury-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
-      Luxury Gifts
-    </NavLink>
+              <NavLink to="/products/luxury-gifts" onClick={handleCorporateSubLinkClick} className="block px-4 py-2 hover:bg-white hover:text-black">
+                Luxury Gifts
+              </NavLink>
 
-    <NavLink to="/products/corporate/wellness-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
-      Wellness Gifts
-    </NavLink>
+              <NavLink to="/products/wellness-gifts" onClick={handleCorporateSubLinkClick} className="block px-4 py-2 hover:bg-white hover:text-black">
+                Wellness Gifts
+              </NavLink>
 
-    <NavLink to="/products/corporate/personal-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
-      Personal Gifts
-    </NavLink>
+              <NavLink to="/products/personal-gifts" onClick={handleCorporateSubLinkClick} className="block px-4 py-2 hover:bg-white hover:text-black">
+                Personal Gifts
+              </NavLink>
 
-    <NavLink to="/products/corporate/employee-onboarding-appreciation-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
-      Employee Onboarding & Appreciation Gifts
-    </NavLink>
+              <NavLink to="/products/employee-onboarding-appreciation-gifts" onClick={handleCorporateSubLinkClick} className="block px-4 py-2 hover:bg-white hover:text-black">
+                Employee Onboarding & Appreciation Gifts
+              </NavLink>
 
-    <NavLink to="/products/corporate/divine-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
-      Divine Gifts
-    </NavLink>
+              <NavLink to="/products/divine-gifts" onClick={handleCorporateSubLinkClick} className="block px-4 py-2 hover:bg-white hover:text-black">
+                Divine Gifts
+              </NavLink>
 
-    <NavLink to="/products/corporate/home-decor-homeware-gifts" className="block px-4 py-2 hover:bg-white hover:text-black">
-      Home Decor & Homeware Gifts
-    </NavLink>
-  </div>
-</div>
+              <NavLink to="/products/home-decor-homeware-gifts" onClick={handleCorporateSubLinkClick} className="block px-4 py-2 hover:bg-white hover:text-black">
+                Home Decor & Homeware Gifts
+              </NavLink>
+            </div>
+          </div>
+
           <NavLink to="/products/special" onClick={() => setMobileMenuOpen(false)} className={`${hasBannerBackground ? 'text-[#ffffff]' : 'text-[#ffffff]'} font-[500] text-[15px] tracking-wide transform transition-transform duration-200 hover:scale-110`}>
           SPECIAL
           </NavLink>
