@@ -337,7 +337,6 @@ const Navbar = ({ hasBannerBackground }) => {
               <NavLink to="/products/luxury-gifts" onClick={handleCorporateSubLinkClick} className="block px-4 py-2 hover:bg-white hover:text-black">
                 Luxury Gifts
               </NavLink>
-
               <NavLink to="/products/wellness-gifts" onClick={handleCorporateSubLinkClick} className="block px-4 py-2 hover:bg-white hover:text-black">
                 Wellness Gifts
               </NavLink>
